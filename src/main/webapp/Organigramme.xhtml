@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet name="style1.css" library="Default"></h:outputStylesheet>
+</h:head>
+
+<h:body>
+	<h:graphicImage library="Default" name="omnishore.png" />
+
+	<ui:fragment rendered="#{loginBean.compte.loggedIn eq true}">
+		<div id="top">
+			<h:form>
+				<h:outputLabel style="font-size:1.2em"
+					value="Bienvenue #{loginBean.compte.login}" />
+				<br />
+				<div align="right">
+					<h:commandButton
+						style="width:140px;height:34px;	background-color: rgb(230,38,44);color:white"
+						value="Se Deconnecter" action="#{loginBean.seDeconnecter()}" />
+				</div>
+			</h:form>
+		</div>
+	</ui:fragment>
+
+	<br />
+	<br />
+	<br />
+	<br />
+
+	<div id="nav">
+		<h:panelGroup styleClass="navbarGroup">
+			<h:panelGrid styleClass="navbarPanel" columns="5">
+				<h:outputLink styleClass="navbar" value="Accueil.jsf">Accueil</h:outputLink>
+				<h:outputLink styleClass="navbar" value="Organigramme.jsf">Organigramme</h:outputLink>
+				<ui:fragment
+					rendered="#{loginBean.compte.collaborateur.isAdmin eq true}">
+					<h:outputLink styleClass="navbar" value="MajEntite.jsf">MAJ des Entites</h:outputLink>
+					<h:outputLink styleClass="navbar" value="MajCollaborateur.jsf">MAJ des Collaborateur</h:outputLink>
+				</ui:fragment>
+			</h:panelGrid>
+		</h:panelGroup>
+	</div>
+	<br />
+	<br />
+	<br />
+	<ui:fragment rendered="#{loginBean.compte.loggedIn eq false}">
+		<fieldset>
+			<legend>Connexion :</legend>
+			<div id="cxOrganigramme">
+				<h:form>
+
+					<h:panelGrid columns="2" cellpadding="2">
+						<h:outputLabel styleClass="lblHeader" id="lblLogin" value="Login"></h:outputLabel>
+						<h:inputText styleClass="inputTexts"
+							value="#{loginBean.compte.login}"></h:inputText>
+
+						<h:outputLabel styleClass="lblHeader" value="Mot de passe"></h:outputLabel>
+						<h:inputSecret styleClass="inputTexts"
+							value="#{loginBean.compte.motDePasse}" />
+					</h:panelGrid>
+					<p:outputLabel value="#{loginBean.erreurMessage}"
+						style="color:red;font-size:80%"></p:outputLabel>
+					<h:panelGrid columns="2" cellpadding="6">
+						<h:commandButton styleClass="btn" value="Se connecter"
+							action="#{loginBean.seConnecter()}">
+							<f:param name="btnId" value="connexion" />
+						</h:commandButton>
+					</h:panelGrid>
+				</h:form>
+			</div>
+			<br />
+			<h:outputLabel>Vous n'avez pas un compte ? <b><h:outputLink
+						value="Inscription1.jsf">Inscrivez-vous</h:outputLink></b>
+			</h:outputLabel>
+		</fieldset>
+	</ui:fragment>
+	<ui:fragment rendered="#{loginBean.compte.loggedIn eq true}">
+
+		<h1>ICI L'ORGANIGRAMME</h1>
+	</ui:fragment>
+</h:body>
+</html>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet name="style1.css" library="Default"></h:outputStylesheet>
+</h:head>
+
+<h:body>
+
+	<ui:include src="Header.xhtml"></ui:include>
+
+	<br />
+	<br />
+	<br />
+
+	<ui:fragment
+		rendered="#{loginBean.compte.collaborateur.isAdmin eq true}">
+
+
+		<center>
+			<fieldset>
+				<legend>Ajout collaborateur :</legend>
+				<br />
+				<h:form id="ajoutColl">
+					<h:panelGrid id="ajoutCollPane" columns="2" cellpadding="8">
+
+						<p:outputLabel styleClass="lblPrime" value="Nom"></p:outputLabel>
+						<p:inputText value="#{majCollaborateurBean.collaborateur.nom}"></p:inputText>
+
+						<p:outputLabel styleClass="lblPrime" value="Prenom"></p:outputLabel>
+						<p:inputText value="#{majCollaborateurBean.collaborateur.prenom}"></p:inputText>
+
+						<p:outputLabel styleClass="lblPrime" value="CIN"></p:outputLabel>
+						<p:inputText value="#{majCollaborateurBean.collaborateur.CIN}"></p:inputText>
+
+						<p:outputLabel styleClass="lblPrime" value="Date de naissance"></p:outputLabel>
+						<p:calendar yearRange="c-70:c" placeholder="yyyy-MM-dd"
+							value="#{majCollaborateurBean.collaborateur.dateNaissance}"
+							navigator="true" pattern="yyyy-MM-dd" />
+
+						<p:outputLabel styleClass="lblPrime" value="Date d'embauche"></p:outputLabel>
+						<p:calendar yearRange="c-20:c" placeholder="yyyy-MM-dd"
+							value="#{majCollaborateurBean.collaborateur.dateEmbauche}"
+							navigator="true" pattern="yyyy-MM-dd" />
+
+						<p:outputLabel styleClass="lblPrime"
+							value="Date premier recrutement"></p:outputLabel>
+						<p:calendar yearRange="c-30:c" placeholder="yyyy-MM-dd"
+							value="#{majCollaborateurBean.collaborateur.datePremierRec}"
+							navigator="true" pattern="yyyy-MM-dd" />
+
+						<p:outputLabel styleClass="lblPrime" value="Entite"></p:outputLabel>
+						<p:selectOneMenu name="entite" id="entiteOneMenu"
+							style="width:180px;" converter="entiteConverter"
+							value="#{majCollaborateurBean.collaborateur.entite}">
+							<f:selectItem itemLabel="" itemValue="#{null}" />
+							<f:selectItems
+								value="#{majCollaborateurBean.collaborateur.isResponsable eq true ? majEntiteBean.listeEntitesSansResponsable : majEntiteBean.listeEntites}"
+								 var="entite" itemLabel="#{entite.nom}" itemValue="#{entite}">
+							</f:selectItems>
+						</p:selectOneMenu>
+
+						<p:outputLabel styleClass="lblPrime" value="isResponsable"></p:outputLabel>
+						<p:selectBooleanCheckbox
+							value="#{majCollaborateurBean.collaborateur.isResponsable}"
+							id="isResp">
+							<p:ajax update="entiteOneMenu" />
+						</p:selectBooleanCheckbox>
+
+						<p:outputLabel styleClass="lblPrime" value="isAdmin"></p:outputLabel>
+						<p:selectBooleanCheckbox
+							value="#{majCollaborateurBean.collaborateur.isAdmin}">
+
+						</p:selectBooleanCheckbox>
+
+					</h:panelGrid>
+
+
+					<h:panelGrid columns="2" cellpadding="8">
+						<h:commandButton styleClass="btn" value="Valider"
+							action="#{majCollaborateurBean.creerCollaborateur()}"
+							update="@form">
+							<f:param name="btnId" value="valider" />
+						</h:commandButton>
+						<h:commandButton styleClass="btn" update="errorMessages"
+							value="Annuler" action="Accueil">
+							<f:param name="btnId" value="viderLesChamps" />
+						</h:commandButton>
+					</h:panelGrid>
+				</h:form>
+				<br />
+			</fieldset>
+		</center>
+	</ui:fragment>
+</h:body>
+</html>

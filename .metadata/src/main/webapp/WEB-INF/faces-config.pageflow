@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14866332400930" configfile="/organigramme/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="Header.xhtml" x="122" y="370" id="pf14872689762880" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf14872689762881 pf14872689762882" path="Header.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="connexion" x="338" y="178" id="pf14872689762883" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf14872689762881" path="connexion.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="inscription.xhtml" x="338" y="562" id="pf14872689762884" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf14872689762882" path="inscription.xhtml"/>
+  <links id="pf14872689762881" target="pf14872689762883" source="pf14872689762880" outcome="connexion" redirect="true"/>
+  <links id="pf14872689762882" target="pf14872689762884" source="pf14872689762880" outcome="inscription" redirect="true"/>
+</pageflow:Pageflow>

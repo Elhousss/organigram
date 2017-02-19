@@ -1,0 +1,104 @@
+@CHARSET "UTF-8";
+			
+body{
+	font-family: Consolas;	
+}
+.inputTexts{
+	margin-right: 0px;
+}
+
+
+.lblPrime{
+	font-family: Consolas;
+	font-size: 90%;
+}
+
+span{
+	font-size: 95%;
+	color: red;
+	font-family: arial;
+}
+
+erreur{
+	color: red;
+	font-family: verdana;
+	font-weight: bold;
+}
+
+#omniDescription{
+	font-size: 100%;
+	border: 1px solid black;
+	margin-top: 10px;
+	margin-left: 30px;
+	width: 800px;
+	padding: 20px;
+	text-align: center;
+	line-height: 190%;
+}
+
+.btnInsc{
+	width: 120px;
+	height: 30px;
+}
+input{
+	border-radius: 6px;
+	margin-top:8px;
+}
+#top{
+	float:right;
+	margin-right:50px;
+	margin-top: 10px;
+	border: 2px solid black;
+	padding: 15px;
+}
+
+input[type=submit]{
+	width:110px;
+	height: 30px;
+	font-weight: bold;
+	font-size: 0.9em;
+	margin: 10px;
+	font-family: Consolas;
+}
+
+
+img{
+	margin-top: 20px;
+	float: left;
+	margin-left:50px;
+}
+
+a{	
+	text-decoration: none;
+}
+
+ul{
+	margin-left: 330px;
+}
+
+#nav{
+	margin-top: 100px;
+	background-color: rgb(9,28,91);
+	border: 1px solid white;
+	padding: 20px;
+		text-align: center;
+}
+.navbar{
+	border: 2px solid white;
+	margin: 10px;
+	padding: 10px;
+	border-radius: 9px;
+	font-size: 105%;
+	color: white;
+}
+
+
+.navbar:hover{
+	background-color: white;
+	color: black;
+}
+
+.navbarPanel{
+	display: inline;
+	text-align: center;
+}

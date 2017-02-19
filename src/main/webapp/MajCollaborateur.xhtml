@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+<h:head>
+	<h:outputStylesheet name="style1.css" library="Default"></h:outputStylesheet>
+</h:head>
+
+<h:body>
+
+	<ui:include src="Header.xhtml"></ui:include>
+
+	<br />
+	<br />
+	<ui:fragment
+		rendered="#{loginBean.compte.collaborateur.isAdmin eq true}">
+
+
+		<fieldset>
+			<legend>
+				<h2 align="center">Mise à jour des collaborateurs</h2>
+			</legend>
+
+			<rich:modalPanel id="Busy" autosized="true" zindex="3000">
+				<h:panelGrid width="600" cellpadding="20" styleClass="noStyle"
+					columns="1">
+					<h:outputLink style="width:200px;" value="AjoutCollaborateur.jsf">
+						<h:graphicImage style="width:30px;height:30px" library="Default"
+							name="add.png" />
+						<h2>&nbsp;Ajouter un collaborateur</h2>
+					</h:outputLink>
+				</h:panelGrid>
+			</rich:modalPanel>
+
+			<h:form id="form">
+				<p:growl id="msgs" showDetail="false" />
+
+				<p:dataTable editable="true" id="collaborateurs" var="collaborateur"
+					value="#{majCollaborateurBean.collaborateursList}"
+					style="margin-bottom:20px">
+					<f:facet name="header">
+						Liste des collaborateurs			       
+					</f:facet>
+
+					<p:ajax event="rowEdit"
+						listener="#{majCollaborateurBean.onRowEdit}" update=":form:msgs" />
+					<p:ajax event="rowEditCancel"
+						listener="#{majCollaborateurBean.onRowCancel}" update=":form:msgs" />
+
+					<p:column width="20%" headerText="Nom">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{collaborateur.nom}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{collaborateur.nom}" style="width:100%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column width="20%" headerText="Prenom">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{collaborateur.prenom}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{collaborateur.prenom}" style="width:100%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column width="20%" headerText="Date de naissance">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{collaborateur.dateNaissance}">
+									<f:convertDateTime pattern="yyyy-MM-dd" type="date" />
+								</h:outputText>
+							</f:facet>
+							<f:facet name="input">
+								<p:calendar yearRange="c-70:c" placeholder="yyyy-MM-dd"
+									value="#{collaborateur.dateNaissance}" navigator="true"
+									pattern="yyyy-MM-dd" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column width="20%" headerText="Date d'embauche">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{collaborateur.dateEmbauche}">
+									<f:convertDateTime pattern="yyyy-MM-dd" type="date" />
+								</h:outputText>
+							</f:facet>
+							<f:facet name="input">
+								<p:calendar yearRange="c-70:c" placeholder="yyyy-MM-dd"
+									value="#{collaborateur.dateEmbauche}" navigator="true"
+									pattern="yyyy-MM-dd" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column width="20%" headerText="Date premier recrutement">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{collaborateur.datePremierRec}">
+									<f:convertDateTime pattern="yyyy-MM-dd" type="date" />
+								</h:outputText>
+							</f:facet>
+							<f:facet name="input">
+								<p:calendar yearRange="c-70:c" placeholder="yyyy-MM-dd"
+									value="#{collaborateur.datePremierRec}" navigator="true"
+									pattern="yyyy-MM-dd" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					
+					<p:column width="30%" headerText="Entite ">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{collaborateur.entite.nom}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:selectOneMenu style="width:80%" converter="entiteConverter"
+									value="#{collaborateur.entite}">
+									<f:selectItems value="#{majEntiteBean.listeEntites}"
+										var="entite" itemLabel="#{entite.nom}" itemValue="#{entite}">
+									</f:selectItems>
+								</p:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column width="30%" headerText="Responsable de l'entite ">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{collaborateur.isResponsable eq true? collaborateur.entite.nom : null}" />
+							</f:facet>
+							<f:facet name="input">
+								<h:outputText value="#{collaborateur.entite.nom}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					
+					<p:column width="20%" headerText="Etat ">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{collaborateur.actif eq true? 'Actif' : 'Inactif'}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:selectOneMenu  style="width:75%"
+									value="#{collaborateur.actif}">
+									<f:selectItem itemLabel="Actif" itemValue="#{true}" />
+									<f:selectItem itemLabel="Inactif" itemValue="#{false}" />
+									<f:converter converterId="booleanConverter" />
+								</p:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column style="width:60px" headerText="Actions">
+						<p:rowEditor style="width:100px"  />
+						<p:commandLink id="deleteLink"
+							update="@form" process="@this" styleClass="ui-icon ui-icon-trash"
+							action="#{majCollaborateurBean.removeCollaborateur(collaborateur)}" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</fieldset>
+	</ui:fragment>
+</h:body>
+</html>
